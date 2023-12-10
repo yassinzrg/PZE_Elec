@@ -1,0 +1,60 @@
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+// UTILISER PIN 15 16 17 POUR RELEVER LA TEMPERATURE
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
+// Broche de données connectée au bus 1-Wire
+const int ONE_WIRE_BUS = 15; // Changer selon la broche utilisée
+
+// Création d'un objet OneWire pour communiquer avec les capteurs
+OneWire oneWire(ONE_WIRE_BUS);
+
+// Création d'un objet DallasTemperature pour gérer les capteurs
+DallasTemperature sensors(&oneWire);
+
+void setup() {
+  // Démarre la communication avec les capteurs
+  sensors.begin();
+  Serial.begin(115200);
+}
+
+void loop() {
+  sensors.requestTemperatures(); // Lance la conversion des températures
+
+  // Lecture de la température pour chaque capteur
+  float tempCelsius1 = sensors.getTempCByIndex(0);
+  float tempCelsius2 = sensors.getTempCByIndex(1);
+  float tempCelsius3 = sensors.getTempCByIndex(2);
+  float tempCelsius4 = sensors.getTempCByIndex(3);
+  float tempCelsius5 = sensors.getTempCByIndex(4);
+  float tempCelsius6 = sensors.getTempCByIndex(5);
+
+  // Affichage des températures lues sur le moniteur série
+  Serial.print("Capteur 1 : ");
+  Serial.print(tempCelsius1);
+  Serial.println(" °C");
+
+  Serial.print("Capteur 2 : ");
+  Serial.print(tempCelsius2);
+  Serial.println(" °C");
+
+  Serial.print("Capteur 3 : ");
+  Serial.print(tempCelsius3);
+  Serial.println(" °C");
+
+  Serial.print("Capteur 4 : ");
+  Serial.print(tempCelsius4);
+  Serial.println(" °C");
+
+  Serial.print("Capteur 5 : ");
+  Serial.print(tempCelsius5);
+  Serial.println(" °C");
+
+  Serial.print("Capteur 6 : ");
+  Serial.print(tempCelsius6);
+  Serial.println(" °C");
+
+  delay(1000); // Attente d'une seconde avant de lire à nouveau les capteurs
+}
